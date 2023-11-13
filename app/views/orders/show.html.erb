@@ -1,0 +1,45 @@
+<div class="orders-wrapper">
+    <div class="order-heading">
+        <h1>Orders</h1>
+        <hr>
+    </div>
+
+    <div class="order-listing-wrapper">
+        <div class="order-listing">
+            <div class="order-line-wrapper">
+                <% @orders.each do |order| %>
+                    <div class="single-line-comp">
+                        <div class="order-component">
+                            <div class="order-id">
+                                <p>ID: <%= order.id %></p>
+                                <p>Created: <%= format_date(order.created_at) %></p>
+                                <p>Promotion Codes: </p>
+                                <p>Discount Codes: </p>
+                                <p>Total Price:  <%= order.price %>$</p>
+                            </div>
+                        </div>
+
+                        <div class="line-item-component-wrapper">
+                            <h4>Items:</h4>
+                            <% order.line_items.each do |line_item| %>
+                                <div class="line-item-component">
+                                    <p class="item-name">
+                                        <li class="main-menu">
+                                            <%= item_name(line_item) %>
+                                            <div class="sub-list"> Add: <%= line_item.addon&.name %></div>
+                                        </li>
+                                    </p>
+                                </div>
+                            <% end %>
+                        </div>
+                    </div>
+
+                    <div>
+                        <%= button_to 'Complete', order_path(order), :method => :put %>
+                    </div>
+                    <hr>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
